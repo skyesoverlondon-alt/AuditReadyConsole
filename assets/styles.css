@@ -59,7 +59,7 @@ body{
       rgba(59,130,246,.10),
       rgba(168,85,247,.16));
   filter: blur(60px);
-  opacity:.8;
+  opacity:.55;
   animation: drift 12s ease-in-out infinite;
   pointer-events:none;
 }
@@ -75,7 +75,7 @@ body{
     linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(circle at 40% 25%, rgba(0,0,0,1), rgba(0,0,0,0) 68%);
-  opacity:.22;
+  opacity:.14;
   pointer-events:none;
 }
 
@@ -85,7 +85,7 @@ body{
   z-index:2;
   pointer-events:none;
   mix-blend-mode:screen;
-  opacity:0.9;
+  opacity:1;
 }
 
 .topbar{
