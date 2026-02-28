@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+  command = "npm run build"
+
+# Keep SPA routing working (mirrors _redirects file in publish dir).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -7,11 +7,18 @@ This is an offline-first web app that helps a business become “audit-ready” 
 - reconciling deposits to invoices or specific revenue entries
 - generating a printable “Audit Readiness Pack” the client can save as PDF
 
-## Deploy (Netlify Drop-ready)
+## Deploy (Netlify)
+Netlify is preconfigured via `netlify.toml` to publish from the repo root and run a no-op build.
+
+### Netlify Drop
 1) Download/copy this folder.
-2) Make sure `index.html` is at the root.
+2) Confirm `index.html` stays at the root (publish directory is `.`).
 3) Drag & drop the folder into Netlify Drop.
 4) Open the site.
+
+### Netlify build pipeline
+1) Optional: `npm run build` (no-op, keeps Netlify happy).
+2) Netlify will use `publish = "."` and the SPA redirect already defined in `_redirects`/`netlify.toml`.
 
 No environment variables. No database required for the core app.
 

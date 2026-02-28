@@ -79,6 +79,15 @@ body{
   pointer-events:none;
 }
 
+#three-bg{
+  position:fixed;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  opacity:0.9;
+}
+
 .topbar{
   position:fixed;
   left:0; right:0; top:0;
