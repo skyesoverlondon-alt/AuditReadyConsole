@@ -4,7 +4,7 @@ if (!canvas) return;
 (async () => {
   try {
     const THREE = await import("https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.min.js");
-    const { Scene, PerspectiveCamera, WebGLRenderer, Color, FogExp2, BufferGeometry, Float32BufferAttribute, PointsMaterial, Points, Clock, AdditiveBlending } = THREE;
+    const { Scene, PerspectiveCamera, WebGLRenderer, Color, FogExp2, BufferGeometry, Float32BufferAttribute, PointsMaterial, Points, Clock } = THREE;
 
     const scene = new Scene();
     scene.fog = new FogExp2(new Color(0x07000d), 0.06);
@@ -35,12 +35,11 @@ if (!canvas) return;
     geometry.setAttribute("position", new Float32BufferAttribute(positions, 3));
 
     const material = new PointsMaterial({
-      color: 0xffd35a,
-      size: 0.16,
+      color: 0xffffff,
+      size: 0.09,
       transparent: true,
-      opacity: 0.9,
-      depthWrite: false,
-      blending: AdditiveBlending
+      opacity: 0.8,
+      depthWrite: false
     });
 
     const cloud = new Points(geometry, material);
