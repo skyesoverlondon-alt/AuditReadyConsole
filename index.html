@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#120018" />
+  <meta name="description" content="Audit-Ready Revenue + Profit Console (offline-first)" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="https://cdn1.sharemyimage.com/2026/02/16/logo1_transparent.png" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <title>Audit-Ready Console • Skyes Over London LC</title>
+</head>
+<body>
+  <!-- Floating logo (no container) -->
+  <img class="floating-logo" src="https://cdn1.sharemyimage.com/2026/02/16/logo1_transparent.png" alt="Skyes Over London LC Logo" border="0">
+
+  <div class="bg-aurora"></div>
+  <div class="bg-grid"></div>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">
+        <div class="brand-title">Audit-Ready Revenue + Profit Console</div>
+        <div class="brand-sub">Consistency • Reconciliation • Audit Readiness Pack</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="chip" id="chipBusiness">Business: <span class="chip-strong" id="bizName">—</span></div>
+      <div class="chip" id="chipMonth">Month: <span class="chip-strong" id="activeMonthLabel">—</span></div>
+      <button class="btn btn-gold" id="btnQuickAdd">+ Quick Add</button>
+      <button class="btn" id="btnExportJSON">Export</button>
+      <label class="btn btn-file">
+        Import
+        <input type="file" id="fileImport" accept="application/json" />
+      </label>
+    </div>
+  </header>
+
+  <main class="shell">
+    <aside class="nav">
+      <div class="nav-section">
+        <div class="nav-title">Core</div>
+        <button class="nav-item active" data-view="dashboard">Dashboard</button>
+        <button class="nav-item" data-view="revenue">Revenue</button>
+        <button class="nav-item" data-view="expenses">Expenses</button>
+        <button class="nav-item" data-view="invoices">Invoices</button>
+        <button class="nav-item" data-view="deposits">Bank Deposits</button>
+        <button class="nav-item" data-view="reconcile">Reconcile</button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Proof Pack</div>
+        <button class="nav-item" data-view="auditpack">Audit Readiness Pack</button>
+        <button class="nav-item" data-view="checklist">Checklist</button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Setup</div>
+        <button class="nav-item" data-view="settings">Settings</button>
+        <button class="nav-item" data-view="help">How This Helps</button>
+      </div>
+
+      <div class="nav-foot">
+        <div class="month-picker">
+          <div class="label">Active month</div>
+          <div class="row">
+            <input class="input" id="monthPicker" type="month" />
+            <button class="btn btn-mini" id="btnGoMonth">Go</button>
+          </div>
+        </div>
+        <div class="tiny">
+          Offline-first. Data stored on this device unless you Export/Import.
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <!-- DASHBOARD -->
+      <div class="view active" id="view-dashboard">
+        <div class="grid-2">
+          <div class="card glow">
+            <div class="card-title">This Month Snapshot</div>
+            <div class="kpi-row">
+              <div class="kpi">
+                <div class="kpi-label">Revenue</div>
+                <div class="kpi-value" id="kpiRevenue">—</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Expenses</div>
+                <div class="kpi-value" id="kpiExpenses">—</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Net Profit</div>
+                <div class="kpi-value" id="kpiProfit">—</div>
+              </div>
+            </div>
+            <div class="kpi-row">
+              <div class="kpi">
+                <div class="kpi-label">Net Margin</div>
+                <div class="kpi-value" id="kpiMargin">—</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Unreconciled Deposits</div>
+                <div class="kpi-value" id="kpiUnrec">—</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Audit Readiness</div>
+                <div class="kpi-value" id="kpiReadiness">—</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="muted">
+              “Consistent, audited revenue + profit” = repeatable monthly numbers + provable trail: invoice → payment → deposit → books.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Consistency Tracker</div>
+            <div class="row gap">
+              <div class="pill">
+                <div class="pill-label">Revenue Consistency</div>
+                <div class="pill-value" id="pillRevConsistency">—</div>
+              </div>
+              <div class="pill">
+                <div class="pill-label">Profit Consistency</div>
+                <div class="pill-value" id="pillProfitConsistency">—</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="mini-grid">
+              <div class="mini-card">
+                <div class="mini-label">Last 6 Months Avg Rev</div>
+                <div class="mini-value" id="m6AvgRev">—</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Last 6 Months Avg Profit</div>
+                <div class="mini-value" id="m6AvgProfit">—</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Revenue Volatility</div>
+                <div class="mini-value" id="m6VolRev">—</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Profit Volatility</div>
+                <div class="mini-value" id="m6VolProfit">—</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="tiny">
+              Volatility is measured as coefficient of variation (std dev / mean). Lower = more consistent.
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">Quick Actions</div>
+            <div class="stack">
+              <button class="btn btn-wide" data-jump="revenue">Add Revenue</button>
+              <button class="btn btn-wide" data-jump="expenses">Add Expense</button>
+              <button class="btn btn-wide" data-jump="invoices">Create Invoice</button>
+              <button class="btn btn-wide" data-jump="deposits">Add Bank Deposit</button>
+              <button class="btn btn-wide btn-gold" data-jump="reconcile">Reconcile Now</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Audit Red Flags Detector</div>
+            <div class="list" id="redFlags"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">What “Audit-Ready” Looks Like</div>
+            <div class="muted">
+              Clean bookkeeping is boring. That’s the point. This app makes boring automatic:
+              consistent monthly tracking, reconciled deposits, invoice trail, and a printable proof pack.
+            </div>
+            <div class="divider"></div>
+            <div class="tiny">
+              Tip: If a month has revenue but no expenses (or vice versa), auditors and lenders raise eyebrows.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVENUE -->
+      <div class="view" id="view-revenue">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Revenue (Sales)</div>
+            <div class="view-sub">Log every sale with client, category, and payment method. Tie to invoice when possible.</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnAddRevenue">+ Add Revenue</button>
+            <button class="btn" id="btnExportRevenueCSV">Export CSV</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table" id="tblRevenue">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Client</th>
+                  <th>Category</th>
+                  <th>Method</th>
+                  <th>Amount</th>
+                  <th>Invoice</th>
+                  <th>Notes</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="tiny">Keep revenue entries aligned to real deposits and invoices to build an audit trail.</div>
+        </div>
+      </div>
+
+      <!-- EXPENSES -->
+      <div class="view" id="view-expenses">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Expenses</div>
+            <div class="view-sub">Track costs by type (COGS vs OpEx) to stabilize margins and prove profitability.</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnAddExpense">+ Add Expense</button>
+            <button class="btn" id="btnExportExpensesCSV">Export CSV</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table" id="tblExpenses">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Vendor</th>
+                  <th>Type</th>
+                  <th>Category</th>
+                  <th>Method</th>
+                  <th>Amount</th>
+                  <th>Notes</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="tiny">Expense type: COGS (delivery costs) vs OpEx (overhead) helps explain margins in audits.</div>
+        </div>
+      </div>
+
+      <!-- INVOICES -->
+      <div class="view" id="view-invoices">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Invoices</div>
+            <div class="view-sub">Invoices are your “paper trail.” If you invoice, track status + payment details.</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnAddInvoice">+ Create Invoice</button>
+            <button class="btn" id="btnExportInvoicesCSV">Export CSV</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table" id="tblInvoices">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Client</th>
+                  <th>Issue</th>
+                  <th>Due</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                  <th>Paid</th>
+                  <th>Payment Ref</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="tiny">If paid, record paid date + payment reference so deposits can be matched.</div>
+        </div>
+      </div>
+
+      <!-- DEPOSITS -->
+      <div class="view" id="view-deposits">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Bank Deposits</div>
+            <div class="view-sub">Deposits are the “proof.” Track deposits and reconcile them to invoices/revenue entries.</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnAddDeposit">+ Add Deposit</button>
+            <button class="btn" id="btnExportDepositsCSV">Export CSV</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table" id="tblDeposits">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Linked Invoice</th>
+                  <th>Linked Revenue</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="tiny">Goal: every deposit should link to a specific invoice/payment (or revenue entry).</div>
+        </div>
+      </div>
+
+      <!-- RECONCILE -->
+      <div class="view" id="view-reconcile">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Reconcile</div>
+            <div class="view-sub">Match deposits ↔ invoices (and/or revenue entries). This is where “audit-ready” happens.</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnAutoMatch">Auto-Match Suggestions</button>
+            <button class="btn" id="btnClearMatches">Clear Matches (Month)</button>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">Unmatched Deposits</div>
+            <div class="list" id="listUnmatchedDeposits"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Match Candidates</div>
+            <div class="muted">Select a deposit on the left to see invoice + revenue matches by amount and date window.</div>
+            <div class="divider"></div>
+            <div class="list" id="listMatchCandidates"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDIT PACK -->
+      <div class="view" id="view-auditpack">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Audit Readiness Pack</div>
+            <div class="view-sub">Generates a printable report your client can “Save as PDF” (browser print).</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnBuildPack">Build Pack</button>
+            <button class="btn" id="btnPrintPack" disabled>Print / Save as PDF</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Pack Preview</div>
+          <div class="divider"></div>
+          <div id="packPreview" class="pack-preview muted">
+            Build the pack to preview. Then print to PDF.
+          </div>
+        </div>
+      </div>
+
+      <!-- CHECKLIST -->
+      <div class="view" id="view-checklist">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Audit Proof Checklist</div>
+            <div class="view-sub">The “prove it” list. Missing items reduce audit readiness score.</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnMarkChecklist">Mark Typical Complete</button>
+            <button class="btn" id="btnResetChecklist">Reset</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="checklist" id="checklist"></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="view" id="view-settings">
+        <div class="view-head">
+          <div>
+            <div class="view-title">Settings</div>
+            <div class="view-sub">Set the business identity and defaults. This prints into the proof pack.</div>
+          </div>
+          <div class="row gap">
+            <button class="btn btn-gold" id="btnSaveSettings">Save Settings</button>
+            <button class="btn btn-danger" id="btnResetAll">Factory Reset</button>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">Business</div>
+            <div class="form">
+              <label class="label">Business name</label>
+              <input class="input" id="setBizName" placeholder="Example: Morales Tire & Auto LLC" />
+
+              <label class="label">Currency</label>
+              <select class="input" id="setCurrency">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="CAD">CAD ($)</option>
+                <option value="AUD">AUD ($)</option>
+                <option value="MXN">MXN ($)</option>
+              </select>
+
+              <label class="label">Accounting basis</label>
+              <select class="input" id="setBasis">
+                <option value="cash">Cash basis (simpler)</option>
+                <option value="accrual">Accrual basis (more formal)</option>
+              </select>
+
+              <label class="label">Fiscal year start month</label>
+              <select class="input" id="setFYStart">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Advisor / Notes</div>
+            <div class="form">
+              <label class="label">Advisor name (prints in pack)</label>
+              <input class="input" id="setAdvisor" placeholder="Example: Skyes Over London LC" />
+
+              <label class="label">Contact email (prints in pack)</label>
+              <input class="input" id="setContact" placeholder="Example: SkyesOverLondonLC@solenterprises.org" />
+
+              <label class="label">Client notes</label>
+              <textarea class="input textarea" id="setNotes" placeholder="Optional notes or policy reminders..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HELP -->
+      <div class="view" id="view-help">
+        <div class="view-head">
+          <div>
+            <div class="view-title">How This Helps Your Clients</div>
+            <div class="view-sub">This is built to produce consistent numbers + provable trails without accounting jargon.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">What it enforces (quietly)</div>
+          <div class="divider"></div>
+          <div class="muted">
+            1) Monthly consistency: it pushes clients to fill every month (even “zero” months) so the story is stable.<br><br>
+            2) Audit trail: invoices + deposits + revenue entries are linked so “prove it” is one click away.<br><br>
+            3) Profit clarity: expenses are typed (COGS vs OpEx) so margins make sense and stay explainable.<br><br>
+            4) Readiness scoring: missing reconciliation and missing proof items automatically show as red flags.<br><br>
+            5) Proof pack: a printable report clients can save as PDF and send to lenders/CPAs/investors.
+          </div>
+          <div class="divider"></div>
+          <div class="tiny">
+            This app is not a replacement for a CPA. It’s the system that makes a CPA’s work clean and fast.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Optional: Turn this into a paid product</div>
+          <div class="divider"></div>
+          <div class="muted">
+            You can sell it as a “Monthly Audit Readiness Membership” where the client fills this out weekly,
+            then you review the pack monthly and deliver a clean PDF proof pack.
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-title" id="modalTitle">Add</div>
+        <button class="btn btn-mini" id="btnCloseModal">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button class="btn" id="btnModalCancel">Cancel</button>
+        <button class="btn btn-gold" id="btnModalSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(()=>{});
+    }
+  </script>
+</body>
+</html>

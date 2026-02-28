@@ -1,0 +1,16 @@
+{
+  "name": "Audit-Ready Revenue + Profit Console",
+  "short_name": "Audit-Ready",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07000d",
+  "theme_color": "#120018",
+  "icons": [
+    {
+      "src": "https://cdn1.sharemyimage.com/2026/02/16/logo1_transparent.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
