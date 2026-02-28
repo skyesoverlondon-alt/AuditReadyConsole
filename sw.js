@@ -4,8 +4,6 @@ const ASSETS = [
   "/index.html",
   "/assets/styles.css",
   "/assets/app.js",
-  "/assets/three-bg.js",
-  "/assets/icon-512%20(1).png",
   "/manifest.webmanifest"
 ];
 

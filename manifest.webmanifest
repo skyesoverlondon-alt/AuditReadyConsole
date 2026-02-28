@@ -7,10 +7,10 @@
   "theme_color": "#120018",
   "icons": [
     {
-      "src": "/assets/icon-512%20(1).png",
+      "src": "https://cdn1.sharemyimage.com/2026/02/16/logo1_transparent.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
