@@ -88,6 +88,13 @@ body{
   opacity:1;
 }
 
+#three-ui-layer{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:12;
+}
+
 .topbar{
   position:fixed;
   left:0; right:0; top:0;
