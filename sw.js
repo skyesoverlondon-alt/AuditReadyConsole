@@ -4,7 +4,8 @@ const ASSETS = [
   "/index.html",
   "/assets/styles.css",
   "/assets/app.js",
-  "/manifest.webmanifest"
+  "/manifest.webmanifest",
+  "/audit_console_stress_test_import.json"
 ];
 
 self.addEventListener("install", (e) => {

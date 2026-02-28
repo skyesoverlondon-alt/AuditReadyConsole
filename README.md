@@ -29,6 +29,10 @@ To move data between devices or send to an advisor:
 - Click **Export** to download a JSON file
 - Click **Import** to load that JSON file on another device
 
+## Sample data (stress test)
+- Download `audit_console_stress_test_import.json` from the repo root (or from the Help card in-app).
+- In the app, click **Import** (top right) and choose that file to instantly load a full dataset for testing.
+
 ## CSV Export
 Each section has **Export CSV** for month-level exports:
 - revenue
